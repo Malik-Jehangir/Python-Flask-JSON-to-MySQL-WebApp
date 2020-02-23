@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script>
+  function printContent() {
+   	var files = document.getElementById('selectFiles').files;
+  var fr = new FileReader();
+  
+  fr.onload = function(e) { 
+  console.log(e);
+    var result = JSON.parse(e.target.result);
+    var formatted = JSON.stringify(result, null, 2);
+		document.getElementById('result').value = formatted;
+
+var obj = JSON.parse(document.getElementById('result').value);
+
+  var text="";
+ 
+  var x;
+  var c=0;
+  for (x in obj) {
+  text+= obj[x].name+"\n"; 
+
+  c+=1;
+  }
+  document.getElementById("demo").innerHTML = text;  
+
+  var text2="";
+  var y;
+  var cw=0;
+  for (y in obj) {
+  text2+= obj[y].family+"\n";  
+  cw+=1;
+  }
+  document.getElementById("demo2").innerHTML = text2;
+ 
+  }
+  
+  fr.readAsText(files.item(0));
+
+}
+    
+    
+</script>
+    
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+  <script>bubbly();</script>
+<h1 style="text-align: center">JSON import interface</h1>
+<input type="file" id="selectFiles" value="Import" style="display:block;margin-left:auto;margin-right:auto;"/><br />
+<button id="import" onclick="printContent()" style="display:block;margin-left:auto;margin-right:auto;">Parse the uploaded file</button>
+
+
+<br>
+<br>
+<br>
+<h1 style="text-align: center">Preview - Click submit to store the results to database</h1>
+<form method="POST" action="/"style="text-align: center">
+  <input type="text" name="result" id="result" hidden />
+
+  <textarea id="demo" style="width:400px;height:100px;display:block;margin-left:auto;margin-right:auto;"></textarea>
+  <br>
+
+  <textarea id="demo2" style="width:400px;height:100px;display:block;margin-left:auto;margin-right:auto;"></textarea>
+  <br>
+
+  <input type="submit"/>
+</form>
+
+
+</body>
+</html>
+
+
+
